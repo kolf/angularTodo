@@ -33,10 +33,10 @@
     </div>
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="todo in vm.todos">
-            标题：{{todo.title}} <span>时间：{{todo.date}}</span><span class="badge" ng-click="vm.remove($index)">删除</span>
+            标题：{{todo.title}} <span style="margin-left: 300px">时间：{{todo.date}}</span><span class="badge" ng-click="vm.remove($index)">删除</span>
         </li>
     </ul>
-    <p>未完成：<span class="badge">{{vm.todos.length|status:1}}</span> 已完成：<span class="badge">{{vm.todos.length|status:0}}</span> 总数：<span class="badge">{{vm.todos.length}}</span></p>
+    <p>未完成：<span class="badge">{{vm.todos|status:1}}</span> 已完成：<span class="badge">{{vm.todos|status:0}}</span> 总数：<span class="badge">{{vm.todos.length}}</span></p>
 </div>
 <script src="bower_components/angular/angular.min.js"></script>
 <script>
@@ -47,7 +47,7 @@
                 vm.todos=[
                     {
                         title:'第一条测试数据',
-                        date:'2222222222',
+                        date:new Date().toLocaleDateString(),
                         status:0
                     }
                 ];
@@ -55,8 +55,8 @@
                 vm.add=function(){
                     vm.todos.push({
                         title:document.querySelector('#title').value,
-                        date:'2222222222',
-                        status:0
+                        date:new Date().toLocaleDateString(),
+                        status:1
                     })
                 };
                 vm.remove=function(i){
@@ -65,7 +65,14 @@
             })
             .filter('status', function(){
                 return function(arr, s){
-                    return arr
+                    var result=0;
+                    angular.forEach(arr, function(a){
+                        if(a.status==s){
+                            result++;
+                        }
+                    });
+
+                    return result;
                 }
             })
 </script>
