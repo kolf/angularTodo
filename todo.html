@@ -19,7 +19,7 @@
     </div>
     <div class="checkbox">
         <label>
-            <input type="checkbox"> 标记所有已解决
+            <input type="checkbox" ng-model="vm.checkAll"> 标记所有已解决
         </label>
     </div>
     <div class="btn-group">
@@ -41,7 +41,7 @@
 
         </li>
     </ul>
-    <p>未完成：<span class="badge">{{vm.todos|status:true}}</span> 已完成：<span class="badge">{{vm.todos|status:false}}</span> 总数：<span class="badge">{{vm.todos.length}}</span></p>
+    <p>未完成：<span class="badge">{{vm.todos|status:false}}</span> 已完成：<span class="badge">{{vm.todos|status:true}}</span> 总数：<span class="badge">{{vm.todos.length}}</span></p>
 </div>
 <script src="bower_components/angular/angular.min.js"></script>
 <script>
@@ -66,7 +66,14 @@
                 };
                 vm.remove=function(i){
                     vm.todos.splice(i,1)
-                }
+                };
+
+                $scope.$watch('vm.checkAll', function(){
+                    angular.forEach(vm.todos, function(a){
+                        a.status=vm.checkAll;
+                    });
+
+                })
             })
             .filter('status', function(){
                 return function(arr, s){
