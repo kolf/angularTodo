@@ -33,10 +33,15 @@
     </div>
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="todo in vm.todos">
-            标题：{{todo.title}} <span style="margin-left: 300px">时间：{{todo.date}}</span><span class="badge" ng-click="vm.remove($index)">删除</span>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="todo.status">{{todo.title}}
+                </label><span style="position: absolute;right: 100px">时间：{{todo.date}}</span><span class="badge pull-right" ng-click="vm.remove($index)">删除</span>
+            </div>
+
         </li>
     </ul>
-    <p>未完成：<span class="badge">{{vm.todos|status:1}}</span> 已完成：<span class="badge">{{vm.todos|status:0}}</span> 总数：<span class="badge">{{vm.todos.length}}</span></p>
+    <p>未完成：<span class="badge">{{vm.todos|status:true}}</span> 已完成：<span class="badge">{{vm.todos|status:false}}</span> 总数：<span class="badge">{{vm.todos.length}}</span></p>
 </div>
 <script src="bower_components/angular/angular.min.js"></script>
 <script>
@@ -47,16 +52,16 @@
                 vm.todos=[
                     {
                         title:'第一条测试数据',
-                        date:new Date().toLocaleDateString(),
-                        status:0
+                        date:new Date().toLocaleTimeString(),
+                        status:true
                     }
                 ];
 
                 vm.add=function(){
                     vm.todos.push({
                         title:document.querySelector('#title').value,
-                        date:new Date().toLocaleDateString(),
-                        status:1
+                        date:new Date().toLocaleTimeString(),
+                        status:false
                     })
                 };
                 vm.remove=function(i){
