@@ -41,7 +41,7 @@
 
         </li>
     </ul>
-    <p>未完成：<span class="badge">{{vm.todos|status:false}}</span> 已完成：<span class="badge">{{vm.todos|status:true}}</span> 总数：<span class="badge">{{vm.todos.length}}</span></p>
+    <p>未完成：<span class="label label-danger">{{vm.todos|status:false}}</span> 已完成：<span class="label label-success">{{vm.todos|status:true}}</span> 总数：<span class="label label-info">{{vm.todos.length}}</span></p>
 </div>
 <script src="bower_components/angular/angular.min.js"></script>
 <script>
