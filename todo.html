@@ -13,10 +13,7 @@
 <body>
 <div class="container" ng-controller="todoCtrl">
     <h2>我的任务列表</h2>
-    <div class="input-group">
-        <input type="text" id="title" class="form-control" placeholder="添加新任务">
-        <span class="input-group-addon" ng-click="vm.add()">添加任务</span>
-    </div>
+    <input type="text" id="title" class="form-control" placeholder="添加新任务" ng-keydown="vm.add($event)">
     <div class="checkbox">
         <label>
             <input type="checkbox" ng-model="vm.checkAll"> 标记所有已解决
@@ -57,12 +54,15 @@
                     }
                 ];
 
-                vm.add=function(){
-                    vm.todos.push({
-                        title:document.querySelector('#title').value,
-                        date:new Date().toLocaleTimeString(),
-                        status:false
-                    })
+                vm.add=function($event){
+                    if($event.keyCode===13){
+                        vm.todos.push({
+                            title:document.querySelector('#title').value,
+                            date:new Date().toLocaleTimeString(),
+                            status:false
+                        })
+                    }
+
                 };
                 vm.remove=function(i){
                     vm.todos.splice(i,1)
